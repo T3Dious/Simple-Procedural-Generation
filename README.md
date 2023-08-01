@@ -19,6 +19,7 @@ Now ->
 ![Core - SampleScene - PC, Mac   Linux Standalone - Unity 2020 3 38f1 Personal _DX11_ 6_10_2023 7_54_54 PM](https://github.com/T3Dious/Simple-Procedural-Generation/assets/104497364/115809ad-a9eb-42f8-a312-81b5d5978673)
 
 Now ->
-![Uploading Screenshot (55).png…]()
+![Screenshot (55)](https://github.com/T3Dious/Simple-Procedural-Generation/assets/104497364/c67c857b-9070-43b4-9dfc-856a859e0489)
+
 
 (note, waves now have seperate code and sure now is more better than before :D)
