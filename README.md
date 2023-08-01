@@ -1,4 +1,4 @@
-![Screenshot (54)](https://github.com/T3Dious/Simple-Procedural-Generation/assets/104497364/b90ada20-20dc-475d-b37f-a3960784ce3f)![Screenshot (54)](https://github.com/T3Dious/Simple-Procedural-Generation/assets/104497364/7343c037-1fe2-40ac-a8f4-50914f53fd86)# Simple-Procedural-Generation
+# Simple-Procedural-Generation
 The code now is descripted with comments, there you will understand more precisely than just explaining here.
 
 just here will show the difference with before and now
