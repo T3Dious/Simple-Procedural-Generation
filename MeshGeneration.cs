@@ -26,22 +26,13 @@ public class MeshGeneration : MonoBehaviour
 
     public float frequency = 1, maxHeight = 16, minHeight = 1;
 
-    private void Start()
+    private void OnValidate()
     {
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         meshFilter.mesh = mesh;
-        
-    }
-
-    private void Update()
-    {
+        meshCollider = GetComponent<MeshCollider>();
         Map();
-        mesh.vertices = vertices.ToArray();
-        mesh.triangles = triangles.ToArray();
-        mesh.uv = uvs.ToArray();
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
     }
 
     //sorry i know this function maybe look a bit complicated but i will do my best to demonstrate them
@@ -87,6 +78,15 @@ public class MeshGeneration : MonoBehaviour
                 uvs.Add(new Vector2(vec.x <= 1 ? vec.x : 2 - vec.x, vec.y <= 1 ? vec.y : 2 - vec.y));
             }
         }
+        
+        mesh.Clear();
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        meshCollider.sharedMesh = mesh;
+        mesh.bounds = meshCollider.bounds;
+        mesh.uv = uvs.ToArray();
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
     }
 
     float NoiseHeight(float sizeX, float sizeZ)
