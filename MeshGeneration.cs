@@ -14,6 +14,8 @@ public class MeshGeneration : MonoBehaviour
 
     Mesh mesh;
 
+    MeshCollider meshCollider;
+
     public Variable variable;
 
     public bool Mountaines;
@@ -38,17 +40,16 @@ public class MeshGeneration : MonoBehaviour
     //sorry i know this function maybe look a bit complicated but i will do my best to demonstrate them
     void Map()
     {
-        //float xStep = variable.Dimension.x / variable.Resolution;
-        //float zStep = variable.Dimension.y / variable.Resolution;
+        float xStep = variable.Dimension.x / variable.Resolution;
+        float zStep = variable.Dimension.y / variable.Resolution;
         vertices = new List<Vector3>();
-        for (int x = 0; x < variable.Resolution + 1; x++) //looping over the z axis in every x axis
+        for (int width = 0; width < variable.Resolution + 1; width++)
         {
-            for (int z = 0; z < variable.Resolution + 1; z++) //looping over x axises in every z axis
+            for (int depth = 0; depth < variable.Resolution + 1; depth++)
             {
                 float y = 0;
-                y = NoiseHeight(x, z);
-
-                vertices.Add(new Vector3(x, y, z));
+                y = NoiseHeight(width, depth);
+                vertices.Add(new Vector3(depth * xStep, y, width * zStep));
             }
         }
 
@@ -91,15 +92,17 @@ public class MeshGeneration : MonoBehaviour
 
     float NoiseHeight(float sizeX, float sizeZ)
     {
+        float xStep = variable.Dimension.x / variable.Resolution;
+        float zStep = variable.Dimension.y / variable.Resolution;
         var y = 0f; //to store the final evaluation of the heights that resulted from the noises
         var noise = 0f; //to store the final value of noise value that generated from FBM
         float Difftime = variable.diff * (2 / variable.omega); //you can search about simple harmonic motion, but the edit here that i replaced pi value 
                                                                //with diff value to control the space between peeks to get an area or a map
-        noise = FractalBrownianMotion(sizeX * variable.xOffset, sizeZ * variable.zOffset) * variable.amplitude; //calculating the noise value
+        noise = FractalBrownianMotion(sizeX * xStep, sizeZ * zStep) * variable.amplitude; //calculating the noise value
         float Yx = variable.MainWaves * variable.omega * variable.alpha * Mathf.Sin(sizeX * variable.omega * math.PI * Difftime)
             + Mathf.Sin(variable.PartialWaves * sizeX * variable.omega * math.PI * Difftime) * noise, // you can search about sine ntimes wave and then look for multiple waves,
-                                                                                                  // one of the equations i use is nth waves with frequencies with the main number of waves(MainWaves) and partial number of waves(Partial Waves)
-                                                                                                  // (second waves or waves inside the maines waves)
+                                                                                                      // one of the equations i use is nth waves with frequencies with the main number of waves(MainWaves) and partial number of waves(Partial Waves)
+                                                                                                      // (second waves or waves inside the maines waves)
             Yz = variable.MainWaves * variable.omega * variable.alpha * Mathf.Sin(sizeZ * variable.omega * math.PI * Difftime)
             - Mathf.Sin(variable.PartialWaves * sizeZ * variable.omega * math.PI * Difftime) * noise;
         //very important point
